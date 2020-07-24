@@ -27,11 +27,11 @@ public class MongoService implements Managed {
                 CodecRegistry pojoCodecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
                         fromProviders(PojoCodecProvider.builder().automatic(true).build()));
                 MongoClientOptions clientOptions = MongoClientOptions.builder().codecRegistry(pojoCodecRegistry).build();
-                ServerAddress serverAddress = new ServerAddress(dbConfiguration.getMongoHost(), dbConfiguration.getMongoPort());
+                ServerAddress serverAddress = new ServerAddress(DBConfiguration.getMongoHost(), DBConfiguration.getMongoPort());
                 mongoClient = new MongoClient(serverAddress, clientOptions);
-                mongoDatabase = mongoClient.getDatabase(dbConfiguration.getMongoDbName());
+                mongoDatabase = mongoClient.getDatabase(DBConfiguration.getMongoDbName());
             }
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
         return mongoDatabase;
