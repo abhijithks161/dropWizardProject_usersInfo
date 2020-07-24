@@ -1,13 +1,11 @@
 package org.example.usersinfoproject.configuration;
 
 import io.dropwizard.Configuration;
-import lombok.Getter;
+import lombok.Data;
 
+@Data
 public class DBConfiguration extends Configuration {
-    @Getter
-    private static String mongoHost;
-    @Getter
-    private static Integer mongoPort;
-    @Getter
-    private static String mongoDbName;
+    private String mongoHost;
+    private Integer mongoPort;
+    private String mongoDbName;
 }

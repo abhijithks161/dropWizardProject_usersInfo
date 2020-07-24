@@ -23,12 +23,13 @@ public class MongoService implements Managed {
     public MongoDatabase getMongoDatabase() {
         try {
             if (mongoDatabase == null) {
+                DBConfiguration dbConfiguration = new DBConfiguration();
                 CodecRegistry pojoCodecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
                         fromProviders(PojoCodecProvider.builder().automatic(true).build()));
                 MongoClientOptions clientOptions = MongoClientOptions.builder().codecRegistry(pojoCodecRegistry).build();
-                ServerAddress serverAddress = new ServerAddress(DBConfiguration.getMongoHost(), DBConfiguration.getMongoPort());
+                ServerAddress serverAddress = new ServerAddress(dbConfiguration.getMongoHost(), dbConfiguration.getMongoPort());
                 mongoClient = new MongoClient(serverAddress, clientOptions);
-                mongoDatabase = mongoClient.getDatabase(DBConfiguration.getMongoDbName());
+                mongoDatabase = mongoClient.getDatabase(dbConfiguration.getMongoDbName());
             }
         } catch (Exception e) {
             e.printStackTrace();
